@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-08-17T12:18:14.939Z",
+  "sourceRecords": 131,
+  "canonicalWorks": 128,
+  "physicalRange": "#100–#227",
+  "duplicateDecisions": [
+    {
+      "number": 150,
+      "kept": "#150 Whispers of Dawn",
+      "removed": [
+        "#150 Bark and Dust"
+      ]
+    },
+    {
+      "number": 198,
+      "kept": "#198 Whispers of Horizon",
+      "removed": [
+        "#198 Blue Air"
+      ]
+    },
+    {
+      "number": 199,
+      "kept": "#199 Whispers of Stillness",
+      "removed": [
+        "#199 Green Whisper"
+      ]
+    },
+    {
+      "number": 200,
+      "kept": "#200 Ethereal Drift VI",
+      "removed": [
+        "#200 Brown Shadow"
+      ]
+    }
+  ],
+  "restoredReviewCards": [
+    123
+  ],
+  "foldedAssetNumbers": {
+    "228": 227
+  },
+  "notes": [
+    "Artwork #123 is intentionally marked for review because its editorial record is missing.",
+    "Files numbered #228 are detail views of #227 Long Hush and are included in that work's gallery.",
+    "Image URLs are rebuilt from the repository filenames, replacing eight broken legacy references."
+  ]
+}
