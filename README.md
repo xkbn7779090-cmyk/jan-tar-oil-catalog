@@ -1,6 +1,8 @@
 # Jan Tar Art Catalog
 
-A rebuilt bilingual catalog of Jan Tar's oil paintings, based on the artist's current Editorial 2026 database and the verified image archive in this repository.
+A rebuilt bilingual catalog of Jan Tar's oil paintings, based on the artist's current Editorial 2026 database.
+
+**Live site:** [jan-tar-oil-catalog-2026.xkbn.chatgpt.site](https://jan-tar-oil-catalog-2026.xkbn.chatgpt.site)
 
 ## Catalog state
 
@@ -13,7 +15,7 @@ A rebuilt bilingual catalog of Jan Tar's oil paintings, based on the artist's cu
 - #228 image files treated as extra detail views of #227 Long Hush, not as a separate work
 - Duplicate records resolved for #150, #198, #199 and #200
 
-The primary editorial source is [Jan Tar — Art Catalog / Editorial 2026](https://app.notion.com/p/3b347eee0e8d8157910de1515a311c28?pvs=204). The original static catalog remains under `old/` for provenance.
+The primary editorial source is [Jan Tar — Art Catalog / Editorial 2026](https://app.notion.com/p/3b347eee0e8d8157910de1515a311c28?pvs=204). Painting images are served from the public [Art archive](https://github.com/xkbn7779090-cmyk/Art).
 
 ## Local development
 
@@ -32,13 +34,6 @@ pnpm run test:sites
 
 The production client is emitted to `dist/client`; the Sites-ready worker and metadata are emitted to `dist/server` and `dist/.openai`.
 
-## Data maintenance
+## Catalog data
 
-`scripts/normalize-catalog.mjs` rebuilds `src/data/catalog.json` from `old/data/catalog_updated.json` and the exact filenames in `images/`. Run it only after reviewing changes in the editorial source:
-
-```sh
-pnpm run catalog:normalize
-pnpm run catalog:verify
-```
-
-The normalization decisions are recorded in `src/data/audit.json`. Visual implementation checks and comparison evidence are documented in `design-qa.md` and `qa/`.
+The normalized catalog is stored in `src/data/catalog.json`, with source-cleanup decisions recorded in `src/data/audit.json`. Visual implementation checks and comparison evidence are documented in `design-qa.md` and `qa/`.

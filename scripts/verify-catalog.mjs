@@ -1,14 +1,10 @@
-import { readdir, readFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, "..");
 const catalog = JSON.parse(await readFile(path.join(rootDir, "src", "data", "catalog.json"), "utf8"));
-const sourceImages = (await readdir(path.join(rootDir, "images")))
-  .filter((name) => /\.jpe?g$/i.test(name))
-  .sort();
-
 function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
@@ -20,17 +16,29 @@ for (let number = 100; number <= 227; number += 1) {
   assert(catalog.some((work) => work.number === number), `Missing artwork #${number}`);
 }
 
-const referencedImages = catalog
-  .flatMap((work) => work.images)
+const referencedUrls = catalog.flatMap((work) => work.images);
+const referencedImages = referencedUrls
   .map((url) => decodeURIComponent(new URL(url).pathname.split("/").pop()))
   .sort();
 
 assert(referencedImages.length === 258, `Expected 258 referenced images, found ${referencedImages.length}`);
 assert(new Set(referencedImages).size === 258, "An image is referenced more than once");
-assert(
-  JSON.stringify(referencedImages) === JSON.stringify(sourceImages),
-  "Catalog image references do not exactly match the repository image archive",
-);
+assert(new Set(referencedUrls).size === 258, "An image URL is referenced more than once");
+
+for (const url of referencedUrls) {
+  const parsed = new URL(url);
+  assert(parsed.protocol === "https:", `Image URL must use HTTPS: ${url}`);
+  assert(parsed.hostname === "raw.githubusercontent.com", `Unexpected image host: ${url}`);
+  assert(
+    parsed.pathname.startsWith("/xkbn7779090-cmyk/Art/main/images/"),
+    `Image URL does not point to the public Art archive: ${url}`,
+  );
+  assert(/\.jpe?g$/i.test(parsed.pathname), `Image URL is not a JPEG: ${url}`);
+}
+
+for (const work of catalog) {
+  assert(work.images.includes(work.cover), `Cover for #${work.number} is not present in its image list`);
+}
 
 const reviewWork = catalog.find((work) => work.number === 123);
 assert(reviewWork?.status === "review" && reviewWork?.needsReview, "#123 must remain marked for review");

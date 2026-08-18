@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "catalog:normalize": "node scripts/normalize-catalog.mjs",
     "catalog:verify": "node scripts/verify-catalog.mjs",
     "dev": "vite",
     "build": "vite build && node scripts/prepare-sites-build.mjs",
