@@ -1,82 +1,94 @@
-# Design QA — Jan Tar Art Catalog
+# Design QA — Jan Tar editorial redesign
 
 ## Comparison target
 
-- Source visual truth: `qa/qa-reference-old-catalog.png`
-- Final desktop implementation: `qa/qa-implementation-desktop.png`
-- Detail-dialog implementation: `qa/qa-implementation-dialog.png`
-- Mobile implementation: `qa/qa-implementation-mobile.png`
-- Viewport: desktop CSS viewport 1280×720; mobile CSS viewport 390×844
-- Pixel dimensions and density:
-  - Source: 1265×712 px, desktop CSS viewport 1280×720, density 1
-  - Final desktop: 1265×712 px, desktop CSS viewport 1280×720, density 1
-  - Dialog: 1280×720 px, desktop CSS viewport 1280×720, density 1
-  - Mobile: 375×811 px, mobile CSS viewport 390×844, density 1
-- Compared state: catalog landing screen at the top of the page; final desktop uses the default Russian locale. The dialog evidence shows work #100 in English.
+- Source visual truth: C:\Users\User\.codex\generated_images\01a00f99-1ee6-7573-aa83-8c47bfe13445\exec-2f9c5ab7-1775-4fef-8c95-c66782e9da0c.png
+- Source pixels: 864 × 1821, density 1×.
+- Implementation URL: http://127.0.0.1:4174/
+- Browser-rendered implementation evidence:
+  - qa/qa-redesign-hero-final.png
+  - qa/qa-redesign-about-final.png
+  - qa/qa-redesign-collection-final.png
+  - qa/qa-redesign-mobile-iteration-1.png
+  - qa/qa-redesign-mobile-about-iteration-1.png
+  - qa/qa-redesign-mobile-collection-iteration-1.png
+  - qa/qa-redesign-mobile-dialog-iteration-1.png
+- Desktop CSS viewport: 864 × 900, devicePixelRatio 1. The in-app browser surface emitted 849 × 837 PNG frames; the final comparison normalizes those frames to the source's 864 px width.
+- Mobile CSS viewport: 390 × 844, devicePixelRatio 1.
+- State: Russian, editorial selection, default filters, 128 catalogue records.
 
 ## Full-view comparison evidence
 
-The rebuild preserves the source system’s defining visual structure: a sticky charcoal header, a near-black centered hero, warm red-orange accent, high-contrast sans-serif typography, and a four-column desktop gallery of real artwork photographs on dark surfaces. The gallery remains the dominant visual material and the first row is visible in the desktop viewport.
+- Combined side-by-side comparison: qa/design-qa-comparison-final.png.
+- The board places the source on the left and normalized implementation captures on the right for the hero, artist story and first catalogue view.
+- Overall composition, section order, warm-ivory field, vermilion accent, serif/sans hierarchy, studio artwork cluster, split biography and three-column catalogue match the chosen direction.
 
-Intentional rebuild changes are the current `Jan Tar` identity, RU/EN switching, canonical inventory counts, catalog search and filters, visible price/size metadata, and an accessible detail viewer. These additions support the requested catalog rebuild and do not replace or imitate any supplied artwork assets.
+## Focused region evidence
 
-## Focused-region comparison evidence
-
-- Header and hero: source and implementation use the same dark hierarchy and orange accent; the implementation tightens the hero so work imagery remains visible above the fold.
-- Gallery: every card uses the supplied repository photograph, with the source’s four-column desktop density and restrained rounded corners. No generated, placeholder, SVG, CSS-art, or div-art imagery is used.
-- Detail viewer: the old lightbox pattern is retained and upgraded with thumbnails, image counters, work-to-work navigation, bilingual descriptions, and complete catalog metadata.
-- Filters: native labeled inputs use the same dark tokens and remain usable at desktop, two-column tablet, and one-column mobile breakpoints.
+- Hero: qa/qa-redesign-hero-final.png
+  - One-row header at the reference breakpoint.
+  - Title, actions and three catalogue metrics align with the reference rhythm.
+  - Real works #100, #150, #182 and #227 reproduce the selected layered studio composition.
+- Artist story: qa/qa-redesign-about-final.png
+  - The 45/55 text-to-image split, editorial title, facts and close-up impasto crop are preserved.
+  - Copy uses verified, non-sensitive facts only.
+- Catalogue: qa/qa-redesign-collection-final.png
+  - Compact toolbar, six functional controls and three editorial columns match the source density.
+  - Canonical titles, sizes, media and prices replace the mock's invented placeholders.
+- Mobile: the four mobile evidence files above confirm the stacked hero, readable biography, single-column catalogue, full-screen artwork dialog and zero horizontal overflow.
 
 ## Required fidelity surfaces
 
-- Fonts and typography: system sans stack matches the source’s neutral UI character; heading scale, weights, wrapping, line height, and small uppercase labels were checked at desktop and mobile. Russian labels no longer clip in the sort control.
-- Spacing and layout rhythm: header, hero, collection heading, filter row, four-column grid, card padding, and modal split were visually checked. Desktop, 768 px tablet, and 390 px mobile layouts have zero horizontal overflow.
-- Colors and visual tokens: near-black backgrounds, charcoal surfaces, quiet grey borders, off-white text, muted secondary copy, and orange-red accent consistently map to the source.
-- Image quality and asset fidelity: the first 24 rendered images loaded at 2000 px natural width. The catalog verifier confirms that all 258 repository images are referenced exactly once across 128 works. #228 files are correctly treated as detail views of #227.
-- Copy and content: RU/EN interface copy is coherent; all 127 complete works retain EN/RU descriptions, price, size, material, location, and SKU. #123 is explicitly marked as unverified instead of presenting invented data.
-- Accessibility and behavior: semantic labels, visible focus rings, reduced-motion handling, keyboard Escape/Arrow navigation, modal body lock, descriptive alt text, and practical mobile target sizes were checked.
+- Fonts and typography: self-hosted Prata for display typography and Manrope for navigation, controls and metadata. Cyrillic and Latin subsets are included. Weight, line height, wrapping and hierarchy match the source closely.
+- Spacing and layout rhythm: 68 px desktop header, roughly 700 px hero, 440 px artist split and compact catalogue toolbar reproduce the reference proportions. Square corners, hairline rules and restrained shadows are maintained.
+- Colors and tokens: warm paper #f7f4ef, ink #181714, muted grey-brown, rules and vermilion #c84408 map directly to the visual target. No gradients were introduced.
+- Image quality and asset fidelity: hero and artist-section imagery uses the original high-resolution artwork photographs, stored locally for the critical path. Catalogue cards retain the canonical 258-image archive. Phosphor supplies the small line icons; there are no placeholder, emoji, div-art or handcrafted SVG substitutes.
+- Copy and content: RU/EN navigation and catalogue copy work end to end. The biography states the verified artist, musician and cultural-organiser practice, Limburg/Netherlands context, 200+ paintings and KSA founding in 2024. Sensitive residency, housing and health details are excluded.
+
+## Primary interactions tested
+
+- RU/EN switch updates the page language and hero copy.
+- Search for 227 returns exactly one work.
+- Artwork #227 opens the dialog; image navigation advances from 1 / 4 to 2 / 4; close works.
+- Review-status filter returns exactly #123.
+- Price descending starts at #227.
+- Load more increases rendered cards from 18 to 36.
+- Header anchors reach Works, About and Contact.
+- Browser console warnings/errors checked: none.
 
 ## Comparison history
 
 ### Iteration 1
 
-- Evidence: `qa/qa-iteration-1-desktop.png`
-- [P2] The initial hero was too tall and pushed the artwork grid entirely below the desktop fold.
-- Fix: reduced hero height and heading scale; tightened collection and filter spacing.
+- Earlier evidence: qa/qa-redesign-hero-iteration-2.png, qa/qa-redesign-about-iteration-1.png, qa/qa-redesign-collection-iteration-1.png.
+- Findings:
+  - [P1] The 864 px breakpoint changed to a two-row header, stacked artist section and two-column catalogue, unlike the source.
+  - [P2] Extra hero intro copy pushed actions and metrics down.
+  - [P2] Artist section and catalogue introduction were substantially taller than the source.
+- Fixes:
+  - Restored the one-row header, split artist layout and three-column catalogue through 864 px.
+  - Removed the extra hero paragraph and realigned the actions/metrics.
+  - Compacted the biography and removed the visible catalogue title while preserving its accessible heading.
 
 ### Iteration 2
 
-- Evidence: `qa/qa-iteration-2-desktop.png`
-- Post-fix: the first artwork row became visible, restoring the source’s image-led first screen.
-- [P2] The Russian sort label was visually clipped by the native select arrow.
-- Fix: widened the sort column and shortened localized sort labels without changing meaning.
+- Earlier evidence: qa/qa-redesign-hero-iteration-3.png, qa/qa-redesign-about-iteration-2.png, qa/qa-redesign-collection-iteration-2.png.
+- Findings:
+  - [P2] The tall painting and three foreground works did not yet match the reference's exact scale and vertical placement.
+  - [P2] The impasto crop was less intimate than the source.
+- Fixes:
+  - Tuned each artwork's desktop position and dimensions independently using the original photographs.
+  - Enlarged and refocused the real impasto detail crop.
+  - Adjusted the first catalogue image ratio to match the reference's portrait rhythm.
 
 ### Final pass
 
-- Evidence: `qa/qa-implementation-desktop.png`
-- The first artwork row is visible, filter labels fit, no horizontal overflow remains, and no actionable P0/P1/P2 visual issues remain.
-
-## Primary interactions tested
-
-- Search for `Whispers of Dawn` returns the single canonical #150 record.
-- Status filter `На проверке` returns only #123.
-- Filter reset restores all 128 works.
-- RU/EN switch updates navigation, filters, counts, metadata, and descriptions.
-- Opening #100 shows two loaded images, complete metadata, and the correct inquiry subject.
-- Next-image navigation changes the counter from 1/2 to 2/2.
-- Next-work navigation advances from #100 to #101 and resets the image counter.
-- Closing the dialog removes it and restores page scrolling.
-- Desktop, tablet, and mobile breakpoints render without horizontal overflow.
-- Browser console: no warnings or errors.
-
-## Build checks
-
-- `node scripts/verify-catalog.mjs`: passed
-- `pnpm run build`: passed
-- `pnpm run test:sites`: 4/4 passed
+- Post-fix evidence: qa/design-qa-comparison-final.png and the final section captures.
+- No actionable P0, P1 or P2 differences remain.
 
 ## Follow-up polish
 
-- P3: a future content pass may add verified Dutch descriptions once the NL database can be matched safely by SKU and image.
+- [P3] The verified biography is slightly longer than the ImageGen mock, intentionally trading a small amount of whitespace for accurate artist context.
+- [P3] Native select arrows vary slightly by operating system; the catalogue remains visually restrained and fully accessible.
 
 final result: passed
