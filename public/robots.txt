@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jan-tar-oil-catalog-2026.xkbn.chatgpt.site/sitemap.xml
