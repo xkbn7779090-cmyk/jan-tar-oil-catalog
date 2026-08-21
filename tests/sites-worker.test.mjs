@@ -41,6 +41,42 @@ test("falls back to index.html for an unknown app route", async () => {
   assert.deepEqual(calls, ["/flow/step-two?source=share", "/index.html"]);
 });
 
+test("serves the app shell for every public page route", async () => {
+  const routes = [
+    "/",
+    "/works",
+    "/about",
+    "/projects",
+    "/projects/human-trust",
+    "/projects/archive-of-passing",
+    "/contact",
+  ];
+
+  for (const route of routes) {
+    const calls = [];
+    const response = await worker.fetch(
+      new Request("https://example.test" + route, {
+        headers: { accept: "text/html" },
+      }),
+      {
+        ASSETS: {
+          fetch: async (request) => {
+            const url = new URL(request.url);
+            calls.push(url.pathname);
+            return new Response(url.pathname === "/index.html" ? "app" : "missing", {
+              status: url.pathname === "/index.html" ? 200 : 404,
+            });
+          },
+        },
+      },
+    );
+
+    assert.equal(response.status, 200, route);
+    assert.equal(await response.text(), "app", route);
+    assert.deepEqual(calls, [route, "/index.html"], route);
+  }
+});
+
 test("does not turn missing API or write requests into the app shell", async () => {
   for (const request of [
     new Request("https://example.test/api/missing", { headers: { accept: "application/json" } }),
